@@ -2,7 +2,11 @@
 
 describe('Login', () => {
   beforeEach(() => {
-    cy.visit('/account/login'); // Replace with your login page path
+    cy.visit('/home'); // Visit the login page
+    cy.contains('Ardhisasa');
+    cy.get('a[routerLink="/account"]').should('be.visible').click();
+    cy.url().should('include', '/account/login');
+    // cy.visit('/account/login'); 
   });
 
   it('input fields and continue button', () => {
@@ -55,8 +59,8 @@ describe('Login', () => {
       });
     });
     cy.get('button[type="submit"]').click();
-    cy.url().should('include', '/user/home');
-    // cy.contains('Services').should('be.visible');
+    // cy.url().should('include', '/user/home');
+    cy.contains('Search for a Service', { timeout: 10000 }).should('be.visible');
 
   });
 })

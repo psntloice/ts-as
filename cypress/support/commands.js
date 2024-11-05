@@ -1,7 +1,9 @@
 Cypress.Commands.add('login', 
     (username = 'PB0B17M000', password = 'Test@123') => {
-    cy.visit('/account/login'); // Visit the login page
-  
+      cy.visit('/home'); // Visit the login page
+      cy.contains('Ardhisasa');
+      cy.get('a[routerLink="/account"]').should('be.visible').click();
+      cy.url().should('include', '/account/login');
     cy.get('input[id="emailOrPhone"]').type(username); // Type in the username
     cy.get('input[id="password"]').type(password); // Type in the password
   
