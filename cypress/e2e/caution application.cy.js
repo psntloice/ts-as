@@ -1,7 +1,7 @@
 
 import 'cypress-file-upload';
 
-describe('Make Application Land Search', () => {
+describe('Make Caution Application', () => {
   beforeEach(() => {
     cy.login();
     cy.intercept('GET', 'http://192.168.214.184/acl/api/v1/accounts/userprofiledetails').as('getUserProfile');
@@ -120,14 +120,11 @@ describe('Make Application Land Search', () => {
 
     const inputData = [
       { selector: 'input[formcontrolname="physical_address"]', text: 'Nairobi' },
-          ];
-    //  cy.get('input[formcontrolname="law_firm_name"]').type('personal');
-    //     cy.get('input[formcontrolname="phone_number"]').type('personal');
-    //     cy.get('input[formcontrolname="physical_address"]').type('personal');
-    //     cy.get('input[formcontrolname="email_address"]').type('personal');
-    //     cy.get('input[formcontrolname="postal_address"]').type('personal');
-    //     cy.get('input[formcontrolname="website"]').type('personal');
-    //     cy.get('input[formcontrolname="street_address"]').type('personal');
+      { selector: 'input[formcontrolname="law_firm_name"]', text: 'ARDHI ADVOCATES' },
+      // { selector: 'input[formcontrolname="phone_number"]', text: '+254710103758' },
+      { selector: 'input[formcontrolname="email_address"]', text: 'timomutai@gmail.com' },
+      { selector: 'input[formcontrolname="postal_address"]', text: 'Box 000-0000 nairobi' },
+               ];
     inputData.forEach(({ selector, text }) => {
       cy.get(selector)
         .should('be.visible')
@@ -152,6 +149,13 @@ describe('Make Application Land Search', () => {
 
     //view and confirmation
     cy.contains('Confirmation');
+    cy.get('table').contains('td', 'Parcel Numbe')
+  .should('be.visible')  // Ensure that the table containing 'gar' is visible
+  .closest('table') .within(() => {
+    // Step 2: Now, within this table, you can search for other data
+    // For example, finding another piece of data within the same table
+    cy.get('td').contains('NAIROBI/BLOCK190/125').should('be.visible');
+  });
     // cy.get('table').contains('td', 'NAIROBI/BLOCK48/56').should('be.visible');
     cy.contains('Proprietor details');
     // cy.get('table').contains('td', 'Mary').should('be.visible');
